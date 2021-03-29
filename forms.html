@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+    box-sizing: border-box;
+    border-radius:8px;
+}
+body{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-image: url("vacation-final.jpg");
+    background-size: 1700px 800px;
+    background-repeat:no-repeat;
+    background-position:center;
+    background-blend-mode: soft-light;
+    margin: 15px 30px;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px;
+    background-attachment:fixed;
+}
+.heading{
+    text-align:center;
+    color:midnightblue;
+    font-family:'Times New Roman', Times, serif;
+}
+.border{
+    border-color:steelblue;
+}
+.gender{
+    display:grid;
+    grid-gap:20px;
+    grid-template-columns:auto;
+    grid-template-rows:auto;
+}
+.male{
+    grid-column-start:1;
+    grid-column-end:2;
+    grid-row-start:1;
+    grid-row-end:2;    
+}
+.female{
+    grid-column-start:2;
+    grid-column-end:3;
+    grid-row-start:1;
+    grid-row-end:2;
+}
+.rather-not-specify{
+    grid-column-start:3;
+    grid-column-end:4;
+    grid-row-start:1;
+    grid-row-end:2;    
+}
+.name-container{
+    display:grid;
+    grid-gap:20px;
+    grid-template-rows:auto;
+    grid-template-columns:auto;
+}
+
+.name-item1{
+    grid-column-start:1;
+    grid-column-end:2;
+    grid-row-start:1;
+    grid-row-end:2;
+}
+.name-item2{
+    grid-column-start:2;
+    grid-column-end:3;
+    grid-row-start:1;
+    grid-row-end:2;
+}
+.name-item3{
+    grid-column-start:3;
+    grid-column-end:4;
+    grid-row-start:1;
+    grid-row-end:2;
+}
+input[Type="submit"]{
+    text-align: center;
+    font-size: 20px;
+    font-weight: 600;
+    background-color:teal;
+    width: 100%;
+}
+input[Type="submit"]:hover{
+    background-color: rosybrown;
+}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea{
+    width: 100%;
+    padding:12px;
+    background-color: rgba(255, 255, 255, 0.687);
+    border: 1px solid springgreen;
+    border-radius: 8px;
+    margin: 10px;
+}
+.billing-address-container{
+    display:grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap:20px;
+}
+.billing-address-item-1{
+    grid-row-start: 1;
+    grid-row-end:2;
+    grid-column-start:1;
+    grid-column-end:3;
+}
+.billing-address-item-2{
+    grid-row-start: 2;
+    grid-row-end:3;
+    grid-column-start:1;
+    grid-column-end:3;
+}
+.billing-address-item-3{
+    grid-row-start:3;
+    grid-row-end:4;
+    grid-column-start:1;
+    grid-column-end:2;
+}
+.billing-address-item-4{
+    grid-row-start:3;
+    grid-row-end:4;
+    grid-column-start:2;
+    grid-column-end:3;
+}
+.billing-address-item-5{
+    grid-row-start:4;
+    grid-row-end:5;
+    grid-column-start:1;
+    grid-column-end:2;
+}
+.billing-address-item-6{
+    grid-row-start:4;
+    grid-row-end:5;
+    grid-column-start:2;
+    grid-column-end:3;
+}
+.shipping-address-container{
+    display:grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    grid-gap:20px;
+}
+.shipping-address-item-1{
+    grid-row-start: 1;
+    grid-row-end:2;
+    grid-column-start:1;
+    grid-column-end:3;
+}
+.shipping-address-item-2{
+    grid-row-start: 2;
+    grid-row-end:3;
+    grid-column-start:1;
+    grid-column-end:3;
+}
+.billing-address-item-3{
+    grid-row-start:3;
+    grid-row-end:4;
+    grid-column-start:1;
+    grid-column-end:2;
+}
+.billing-address-item-4{
+    grid-row-start:3;
+    grid-row-end:4;
+    grid-column-start:2;
+    grid-column-end:3;
+}
+.billing-address-item-5{
+    grid-row-start:4;
+    grid-row-end:5;
+    grid-column-start:1;
+    grid-column-end:2;
+}
+.billing-address-item-6{
+    grid-row-start:4;
+    grid-row-end:5;
+    grid-column-start:2;
+    grid-column-end:3;
+}
+</style>
+<body>
+    <form action="" class="container-of-order-placement">
+        <h1 class="heading">Place Your Order</h1>
+        <p>required fields*</p>
+        <fieldset class="border">
+            <fieldset class="border">
+            <legend>Full name*</legend>
+            <div class="name-container">
+                <div class="name-item1">
+                    <input type="text"  name="first-name" placeholder="First name" autocomplete="off" id="first-name">
+                <span id="first-user-name"></span></div>
+                <div class="name-item2">
+                    <input type="text"  name="middle-name" placeholder="Middle name" maxlength="10" autocomplete="off"></div>
+                <div class="name-item3">
+                    <input type="text"  name="last-name" placeholder="Last name" maxlength="10" autocomplete="off"></div>
+            </div>
+        </fieldset>
+        <p></p>
+        <feildset class="border">
+            <legend>Email:*</legend>
+                <input type="email" name="email" id="email" autocomplete="off">
+        </feildset>
+        <p>
+        </p>
+        <fieldset class="border">
+            <legend>Contact Number*</legend>
+            <div class="contact-container">
+                <div class="contact-item">
+                    <input type="tel" name="area-code" placeholder="Area code" maxlength="4" autocomplete="off"></div>
+                <div class="contact-item">
+                    <input type="tel" placeholder="Phone Number" name="phone-number" maxlength="10" id="phone-number" autocomplete="off"></div>
+            </div>
+        </fieldset>
+        <p></p>
+        <fieldset class="border"> 
+            <legend>Gender</legend>  
+            <div class="gender">
+                <div class="male">Male 
+                    <input type="radio" name="gender" id="male" autocomplete="off"></div>
+                <div class="female">Female 
+                    <input type="radio" name="gender" id="female" autocomplete="off"></div>
+                <div class="rather-not-specify">Rather not specify 
+                    <input type="radio" name="gender" id="rather-not-specify" autocomplete="off"></div>
+            </div>
+        </fieldset>  
+        <p></p>   
+        <fieldset class="border"> 
+            <legend>Billing Address*</legend>
+            <div class="billing-address-container">
+                <div class="billing-address-item-1"><input type="text"  placeholder="Street Address" name="street-address" autocomplete="off"></div>
+                <div class="billing-address-item-2"><input type="text"  placeholder="Street Address line 2" name="street-address-line-2" autocomplete="off"></div>
+                <div class="billing-address-item-3"><input type="text"  placeholder="City" name="city" autocomplete="off"></div>
+                <div class="billing-address-item-4"><input type="text"  placeholder="State/province" name="state" autocomplete="off"></div>
+                <div class="billing-address-item-5"><input type="tel"  placeholder="Postal/Zip code" maxlength="10" name="postal-code" autocomplete="off"></div>
+                <div class="billing-address-item-6">
+                    <select name="country">
+                        <option value="" >--Select a country--</option>
+                        <option value="India" >India</option>
+                        <option value="Sri Lanka" >Sri Lanka</option>
+                        <option value="Bangladesh" >Bangladesh</option>
+                        <option value="Nepal" >Nepal</option>
+                        <option value="Pakistan" >Pakistan</option>
+                        <option value="Bhutan">Bhutan</option>
+                        <option value="Maldives" >Maldives</option>
+                    </select>
+                </div>    
+            </div>
+        </fieldset>
+        <p></p>
+        <fieldset class="border">   
+            <legend>Products</legend>
+            <p></p>
+                <div class="T-shirt-container">T-Shirt $1.00<input type="radio" name="Products" id="T-shirt" onclick="return check1()">
+                    <p></p>
+                <div class="T-shirt-item" >
+                    <select name="quantity" id="QTY1" onselect="return value1()">
+                        <option value="">--select quantity--</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+                </div>
+                <div class="T-shirt-item">
+                    <select name="color">
+                        <option value="">--select a color--</option>
+                        <option value="red">Red</option>
+                        <option value="yellow">Yellow</option>
+                        <option value="black">Black</option>
+                        <option value="white">White</option>
+                    </select>
+                </div>
+                <div class="T-shirt-item">
+                    <select name="size">
+                        <option value="">--select size--</option>
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L">L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+                </div>
+                <div class="beach-shorts-container">Beach Shorts $1.00<input type="radio" name="Products1" id="beach-short" onclick="return check2()">
+                    <div class="beach-short-item">
+                        <select name="quantity1" id="QTY2" onselect="return value2()">
+                            <option value="">--select quantity--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+                    </div>
+                    <div class="beach-short-item">
+                        <select name="color1">
+                            <option value="">--select a color--</option>
+                            <option value="red">Red</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="black">Black</option>
+                            <option value="white">White</option>
+                        </select>
+                    </div>
+                    <div class="beach-short-item">
+                        <select name="size1">
+                            <option value="">--select size--</option>
+                            <option value="XS">XS</option>
+                            <option value="S">S</option>
+                            <option value="M">M</option>
+                            <option value="L">L</option>
+                            <option value="XL">XL</option>
+                            <option value="XXL">XXL</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="shoes-container">shoe $1.00<input type="radio" name="Products2" id="shoe" onclick="return check3()">
+                    <div class="shoes-item">
+                        <select name="quantity2" id="QTY3" onselect="return value3()">
+                            <option value="">--select quantity--</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>    
+                        </select>
+                    </div>
+                    <div class="shoes-item">
+                        <select  name="size2">
+                            <option value="">--select shoe size--</option>
+                            <option value="6">6</option>
+                            <option value="6.5">6.5</option>
+                            <option value="7">7</option>
+                            <option value="7.5">7.5</option>
+                            <option value="8">8</option>
+                            <option value="8.5">8.5</option>
+                            <option value="9">9</option>
+                            <option value="9.5">9.5</option>
+                            <option value="10">10</option>
+                            <option value="10.5">10.5</option>
+                            <option value="11">11.5</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                        </select>
+                    </div>
+                </div>
+            </p>
+            <p>total</p>
+            <input type="radio" id="bag-total" onclick="return total()">Check Bag Total
+        </fieldset>    
+        <fieldset class="border">
+            <legend>Shipping address</legend>
+            <div class="shipping-address-container">
+                <div class="shipping-address-item-1"><input type="text"  name="street-address1" placeholder="Street Address" autocomplete="off"></div>
+                <div class="shipping-address-item-2"><input type="text"  name="street-address-line1" placeholder="Street Address line 2" autocomplete="off"></div>
+                <div class="shipping-address-item-3"><input type="text"  name="city1" placeholder="City" autocomplete="off"></div>
+                <div class="shipping-address-item-4"><input type="text"  name="state1" placeholder="State/province" autocomplete="off"></div>
+                <div class="shipping-address-item-5"><input type="tel"  name="postal-code1" placeholder="Postal/Zip code" maxlength="10" autocomplete="off"></div>
+                <div class="shipping-address-item-6">
+                    <select name="country1">
+                        <option value="">--Select a country--</option>
+                        <option value="India">India</option>
+                        <option value="Sri Lanka">Sri Lanka</option>
+                        <option value="Bangladesh">Bangladesh</option>
+                        <option value="Nepal">Nepal</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Bhutan">Bhutan</option>
+                        <option value="Maldives">Maldives</option>
+                    </select>
+                </div>    
+            </div>
+        </fieldset>
+        <fieldset class="border">
+            <legend>Additional requests</legend><textarea name="Additional-requests" id="additional-requests" cols="60" rows="8"></textarea>
+        </fieldset>      
+            <!-- <p><input type="submit" value="Proceed to payment" href="forms.html"></p> -->
+            <p></p>
+        <input type="submit" value="Place My Order">
+        </fieldset>
+    </form> 
+    <script>
+        let y=0,z;
+        let bagTotal;
+        function check1(){
+            let x=document.getElementById('T-shirt').checked;
+            if(x==true){
+                function value1(){
+                    y++;
+                    z=document.getElementById("QTY1").selectedOptions[0].value;
+                }
+            }
+        }
+            bagTotal=y*z;
+            y=0;
+        function check2(){    
+            let a=document.getElementById('beach-short').checked;
+            if(a==true){
+                function value2(){
+                    y++;
+                    z=document.getElementById("QTY2").selectedOptions[0].value;
+                }
+            }
+        }
+            bagTotal+=y*z;
+            y=0;
+        function check3(){    
+            let b=document.getElementById('shoe').checked;
+            if(b==true){
+                function value3(){
+                    y++;
+                    z=document.getElementById("QTY3").selectedOptions[0].value;
+                }
+            }
+        }
+        bagTotal+=y*z;
+        function total(){
+            let c=document.getElementById("bag-total").checked;
+            if(c==true){
+                alert("your bag total is"+bagTotal);
+            }
+        }
+    </script>   
+</body>
+</html>
