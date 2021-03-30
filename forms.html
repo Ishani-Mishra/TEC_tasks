@@ -21,7 +21,6 @@ body{
     margin: 15px 30px;
     font-size: 20px;
     font-weight: 600;
-    padding: 8px;
     background-attachment:fixed;
 }
 .heading{
@@ -260,14 +259,14 @@ textarea{
         <fieldset class="border">   
             <legend>Products</legend>
             <p></p>
-                <div class="T-shirt-container">T-Shirt $1.00<input type="radio" name="Products" id="T-shirt" onclick="return check1()">
+                <div class="T-shirt-container">T-Shirt $1.00<input type="radio" name="Products" id="T-shirt">
                     <p></p>
                 <div class="T-shirt-item" >
                     <select name="quantity" id="QTY1" onselect="return value1()">
-                        <option value="">--select quantity--</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
+                        <option type="number" value=0>--Select quantity--</option>
+                        <option type="number" value=1>1</option>
+                        <option type="number" value=2>2</option>
+                        <option type="number" value=3>3</option>
                     </select>
                 </div>
                 <div class="T-shirt-item">
@@ -291,13 +290,13 @@ textarea{
                     </select>
                 </div>
                 </div>
-                <div class="beach-shorts-container">Beach Shorts $1.00<input type="radio" name="Products1" id="beach-short" onclick="return check2()">
+                <div class="beach-shorts-container">Beach Shorts $1.00<input type="radio" name="Products1" id="beach-short">
                     <div class="beach-short-item">
                         <select name="quantity1" id="QTY2" onselect="return value2()">
-                            <option value="">--select quantity--</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                            <option type="number" value=0>--Select Quantity</option>
+                            <option type="number" value=1>1</option>
+                            <option type="number" value=2>2</option>
+                            <option type="number" value=3>3</option>
                         </select>
                     </div>
                     <div class="beach-short-item">
@@ -321,13 +320,13 @@ textarea{
                         </select>
                     </div>
                 </div>
-                <div class="shoes-container">shoe $1.00<input type="radio" name="Products2" id="shoe" onclick="return check3()">
+                <div class="shoes-container">shoe $1.00<input type="radio" name="Products2" id="shoe">
                     <div class="shoes-item">
                         <select name="quantity2" id="QTY3" onselect="return value3()">
-                            <option value="">--select quantity--</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>    
+                            <option type="number" value=0>--Select Quantity--</option>
+                            <option type="number" value=1>1</option>
+                            <option type="number" value=2>2</option>
+                            <option type="number" value=3>3</option>    
                         </select>
                     </div>
                     <div class="shoes-item">
@@ -386,44 +385,25 @@ textarea{
         </fieldset>
     </form> 
     <script>
-        let y=0,z;
-        let bagTotal;
-        function check1(){
-            let x=document.getElementById('T-shirt').checked;
-            if(x==true){
+        let y=1;
+        let bagTotal=0;
                 function value1(){
-                    y++;
-                    z=document.getElementById("QTY1").selectedOptions[0].value;
+                    let z=document.getElementById('QTY1').value;
+                    return parseInt(z);
                 }
-            }
-        }
-            bagTotal=y*z;
-            y=0;
-        function check2(){    
-            let a=document.getElementById('beach-short').checked;
-            if(a==true){
                 function value2(){
-                    y++;
-                    z=document.getElementById("QTY2").selectedOptions[0].value;
-                }
-            }
-        }
-            bagTotal+=y*z;
-            y=0;
-        function check3(){    
-            let b=document.getElementById('shoe').checked;
-            if(b==true){
+                    let z=document.getElementById('QTY2').value;
+                    return parseInt(z);
+                }  
                 function value3(){
-                    y++;
-                    z=document.getElementById("QTY3").selectedOptions[0].value;
+                    let z=document.getElementById('QTY3').value;
+                    return parseInt(z);
                 }
-            }
-        }
-        bagTotal+=y*z;
         function total(){
-            let c=document.getElementById("bag-total").checked;
-            if(c==true){
-                alert("your bag total is"+bagTotal);
+                let c=document.getElementById('bag-total').checked;
+                if(c==true){
+                    bagTotal=value1()+value2()+value3();
+                    alert("your bag total is "+bagTotal+"$");
             }
         }
     </script>   
