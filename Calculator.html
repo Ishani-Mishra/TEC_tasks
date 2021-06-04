@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing:border-box;
+        }
+        body{
+            background-color: rgba(0, 0, 0, 0.796);
+        }
+        .buttons-container{
+          display: flex;
+          flex: 1;
+          min-height: 100vh;
+          align-items: center;
+          justify-content: center;
+        }
+        .key{
+            height:60px;
+            width:60px;
+            background-color:chartreuse;
+            color: teal ;
+            transition: all .07s ease;
+            text-shadow: 0 0 .5rem green;
+        }
+        #screen{
+            height:60px;
+            width:254px;
+            background-color: white;
+        }
+        .key:active{
+            -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 128, 128, 0.244);
+            box-shadow: 0px 1px 4px 0px rgba(0, 128, 128, 0.244);
+            border-color:teal;
+            font-weight:bold;
+        }
+        .key:hover{
+            -webkit-box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+            box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.2);
+            font-weight:bolder;
+            color:chartreuse;
+            background-color: teal;
+        }
+    </style>
+</head>
+<body>
+    <div  class="buttons-container">
+    <div class="calculator">
+            <button id="screen"></button>
+    <table class="rest">
+        <tr>
+            <td>
+                <button data-key="0" class="number key">1</button>
+            </td>
+            <td>                
+                <button data-key="0" class="number key">2</button>
+            </td> 
+            <td>           
+                <button data-key="0" class="number key">3</button>
+            </td>
+            <td>
+                <button data-key="0" class="key" id="isequal">=</button>
+            </td>
+        </tr>
+        <tr>
+            <td>            
+                <button data-key="0" class="number key">4</button>
+            </td>
+            <td>            
+                <button data-key="0" class="number key">5</button>
+            </td>
+            <td>           
+                <button data-key="0" class="number key">6</button>
+            </td>
+            <td>
+                <button data-key="0" class="operation key">+</button>
+            </td>          
+        <tr>
+            <td>
+                <button data-key="0" class="number key">7</button>
+            </td>
+            <td>            
+                <button data-key="0" class="number key">8</button>
+            </td> 
+            <td>           
+                <button data-key="0" class="number key">9</button> 
+            </td> 
+            <td>
+                <button data-key="0" class="operation key">-</button>
+            </td>
+        <tr>
+            <td>
+                <button data-key="0" class="key" id="ac">AC</button>        
+            </td>
+            <td>
+                <button data-key="0" class="number key">0</button>
+            </td>
+            <td>
+                <button data-key="0" class="operation key">&times;</button>
+            </td>
+            <td>
+                <button data-key="0" class="operation key">&divide;</button>
+            </td>
+        </tr>                 
+    </table>
+   </div>
+  </div> 
+  <audio data-key="0" src="clap.wav"></audio>
+   <script>
+    let input = document.getElementById('screen'), // input/output button
+    number = document.querySelectorAll('.number'), // number buttons  //creates an array of numbers from 0 to 9
+    operator = document.querySelectorAll('.operation'), // operator buttons  //creates an list of objects of operations
+    result = document.getElementById('isequal'), // equal button
+    clear = document.getElementById('ac'), // clear button
+    resultDisplayed = false; // flag to keep an eye on what output is displayed
+      // adding click handlers to number buttons
+      for (let i = 0; i < number.length; i++) {
+        number[i].addEventListener("click", function(e) {
+
+          // storing current input string and its last character in variables - used later
+          let currentString = input.innerHTML;
+          let lastChar =currentString[currentString.length - 1];
+
+          // if result is not diplayed, just keep adding
+          if (resultDisplayed === false) {
+            input.innerHTML += e.target.innerHTML;
+          } else if (resultDisplayed === true && lastChar === "+" || lastChar === "-" || lastChar === "×" || lastChar === "÷") {
+            // if result is currently displayed and user pressed an operator
+            // we need to keep on adding to the string for next operation
+            resultDisplayed = false;
+            input.innerHTML += e.target.innerHTML;
+          } else {
+            // if result is currently displayed and user pressed a number
+            // we need clear the input string and add the new input to start the new opration
+            resultDisplayed = false;
+            input.innerHTML = "";
+            input.innerHTML += e.target.innerHTML;
+          }
+
+        });
+      }
+
+// adding click handlers to operator buttons
+for (let i = 0; i < operator.length; i++) {
+  operator[i].addEventListener("click", function(e) {
+
+    // storing current input string and its last character in variables - used later
+    let currentString = input.innerHTML;
+    let lastChar = currentString[currentString.length - 1];
+
+    // if last character entered is an operator, replace it with the currently pressed one
+    if (lastChar === "+" || lastChar === "-" || lastChar === "×" || lastChar === "÷") {
+      let newString = currentString.substring(0, currentString.length - 1) + e.target.innerHTML; //this is done so that numbers and operators are concatenated into one single string
+      input.innerHTML = newString;
+    } else if (currentString.length == 0) {
+      // if first key pressed is an opearator, don't do anything
+      console.log("enter a number first");
+    } else {
+      // else just add the operator pressed to the input
+      input.innerHTML += e.target.innerHTML;
+    }
+
+  });
+}
+
+// on click of 'equal' button
+result.addEventListener("click", function() {
+
+  // this is the string that we will be processing eg. -10+26+33-56*34/23
+  let inputString = input.innerHTML;
+
+  // forming an array of numbers. eg for above string it will be: numbers = ["10", "26", "33", "56", "34", "23"]
+  let numbers = inputString.split(/\+|\-|\×|\÷/g);
+
+  // forming an array of operators. for above string it will be: operators = ["+", "+", "-", "*", "/"]
+  // first we replace all the numbers and dot with empty string and then split
+  let operators = inputString.replace(/[0-9]|\./g, "").split("");
+
+  console.log(inputString);
+  console.log(operators);
+  console.log(numbers);
+  console.log("----------------------------");
+
+  // now we are looping through the array and doing one operation at a time.
+  // first divide, then multiply, then subtraction and then addition-BODMAS
+  // as we move we are alterning the original numbers and operators array
+  // the final element remaining in the array will be the output
+
+  let divide = operators.indexOf("÷");
+  while (divide != -1) {
+    numbers.splice(divide, 2, numbers[divide] / numbers[divide + 1]);
+    operators.splice(divide, 1);
+    divide = operators.indexOf("÷");
+  }
+
+  let multiply = operators.indexOf("×");
+  while (multiply != -1) {
+    numbers.splice(multiply, 2, numbers[multiply] * numbers[multiply + 1]);
+    operators.splice(multiply, 1);
+    multiply = operators.indexOf("×");
+  }
+
+  let subtract = operators.indexOf("-");
+  while (subtract != -1) {
+    numbers.splice(subtract, 2, numbers[subtract] - numbers[subtract + 1]);
+    operators.splice(subtract, 1);
+    subtract = operators.indexOf("-");
+  }
+
+  let add = operators.indexOf("+");
+  while (add != -1) {
+    // using parseFloat is necessary, otherwise it will result in string concatenation :)
+    numbers.splice(add, 2, parseFloat(numbers[add]) + parseFloat(numbers[add + 1]));
+    operators.splice(add, 1);
+    add = operators.indexOf("+");
+  }
+
+  input.innerHTML = numbers[0]; // displaying the output
+
+  resultDisplayed = true; // turning flag if result is displayed
+});
+
+// clearing the input on press of clear
+clear.addEventListener("click",function(e){
+  input.innerHTML="";
+});
+function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+  }
+
+  function playSound(e) {
+    const audio = document.querySelector(`audio[data-key="0"]`);
+    const key = document.querySelector(`div,table,tr,td,button[data-key="0"]`);
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.currentTime = 0;
+    audio.play();
+  }
+
+  const keys = Array.from(document.querySelectorAll('.key'));
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener("click", playSound);
+
+</script>
+</body>
+</html>
